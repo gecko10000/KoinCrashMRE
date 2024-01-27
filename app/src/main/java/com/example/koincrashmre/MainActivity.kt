@@ -14,6 +14,7 @@ import com.example.koincrashmre.ui.theme.KoinCrashMRETheme
 import org.koin.android.ext.koin.androidContext
 import org.koin.compose.koinInject
 import org.koin.core.context.startKoin
+import org.koin.core.context.stopKoin
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,11 +35,15 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+    override fun onDestroy() {
+        super.onDestroy()
+        stopKoin()
+    }
 }
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
-    val testDIClass: TestDIClass = koinInject()
+    val testDIClass: TestDIClass = koinInject() // problem
     Text(
         text = "Hello $name!",
         modifier = modifier
